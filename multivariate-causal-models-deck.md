@@ -24,6 +24,7 @@ $\newcommand{\b}{\mathbf}$
 $\newcommand{\scm}{\mathfrak{C}}$
 $\newcommand{\parents}{\b{PA}}$
 $\newcommand{\indep}{\perp \!\!\!\!\! \perp}$
+$\newcommand{\graph}{\mathcal G}$
 
 # Structural Causal Models
 
@@ -46,8 +47,8 @@ $$
 
 ::: fragment
 <br>
-Causal Graph
-![Example p. 90](images/simple-scm.png){ width=100% }
+Causal Graph $\graph$
+![Example 6.10 p. 90](images/simple-scm.png){ width=100% }
 :::
 
 :::
@@ -87,8 +88,8 @@ $$
 $$
 
 <br>
-Causal Graph
-![Example p. 90](images/simple-scm.png){ width=100% }
+Causal Graph $\graph$
+![Example 6.10 p. 90](images/simple-scm.png){ width=100% }
 
 :::
 
@@ -97,7 +98,8 @@ Causal Graph
 	- $\b X = (X_1, Y, X_2)$
 - Ancestral Sampling
 	1. Sample noise i.i.d.
-	2. Use structural assignments 
+	2. Use structural assignments
+- Can be modeled without SCM
 :::
 
 :::
@@ -122,8 +124,8 @@ $$
 $$
 
 <br>
-Causal Graph
-![Example p. 90](images/simple-scm.png){ width=100% }
+Causal Graph $\graph$
+![Example 6.10 p. 90](images/simple-scm.png){ width=100% }
 
 :::
 
@@ -141,6 +143,8 @@ Causal Graph
 <!--- Invervention variables also possible-->
 
 - Total causal effect from $X$ to $Y$ iff $\exists \tilde N_X. \; X \not\indep Y$ in $P_{\b X}^{\scm; do(X := \tilde N_X)}$
+
+- Also possible without SCM
 :::
 
 :::
@@ -167,33 +171,71 @@ $$
 $$
 with $N_X, N_Y, N_Z \overset{\text{iid}}{\sim} \mathrm{U}(\{-5, -4, \dots, 4, 5\})$
 
-::: { .fragment data-fragment-index="1" }
 <br>
-Observe $(X, Y, Z) = (1, 2, 4)$
-:::
 
+::: { .fragment data-fragment-index="1" }
+- Observe $\b x = (X, Y, Z) = (1, 2, 4)$
+:::
+::: { .fragment data-fragment-index="3" }
+- $P_{\b N}^{\scm | \b X = \b x} \implies (N_X, N_Y, N_Z) = (1, 1, -1)$
+:::
 ::: { .fragment data-fragment-index="5" }
-$P_{\b N}^{\scm | \b X | \b x} \implies (N_X, N_Y, N_Z) = (1, 1, -1)$
+- $P_Z^{\scm | \b X = \b x; do(X := 2)} \implies Z = 11$
 :::
-
-<!--<br>
-Causal Graph TODO: If I got time
-![Example p. 90](images/simple-scm.png){ width=100% }-->
 
 :::
 
+::: {}
 
-
+::: {.fragment data-fragment-index="2"}
+- Condition $\b N$ on $\b X = \b x$: $P_{\b N}^{\scm | \b X = \b x} := P_{\b N | \b X = \b x}$
+	- Counterfactual SCM $\scm_{\b X = \b x} := \big( \b S, P_{\b N}^{\scm | \b X = \b x} \big)$
+:::
+::: {.fragment data-fragment-index="4"}
+- Now intervene $P_Z^{\scm | \b X = \b x; do(X := 2)}$
+:::
+::: {.fragment data-fragment-index="6"}
 - Not transitive
+	- $Y = 5$ if $X = 2$
+	- $Z = 10$ if $Y = 5$
+	- $Z \neq 10$ if $X = 2$
+:::
+::: {.fragment data-fragment-index="7"}
+- Same intervention distributions $\not\Rightarrow$ Same counterfactual statements
+	- SCM holds more information than its Graph
+:::
 
 :::
 
+:::
 
 # Markov Property
 
-# $d$-Separation
+A given DAG $\graph$ and joint distribution $P_{\b X}$ satisfies the...
+
+::: incremental
+- ...**global Markov property** if $\b A \b \indep_\graph \b B \b | \b C \implies \b A \indep \b B | \b C.$
+- ...**local Markov property** if each variable is independent of its non-descendants given its parents.
+- ...**Markov factorization property** if $p(\b x) = p(x_1, \dots, x_d) = \prod_{j=1}^d p(x_j | \parents_j^\graph).$
+:::
+
+::: { .fragment .center }
+All equivalent and applicable to SCM graphs! 🥳
+:::
+
+# $d$-Separation 〰🖊
+<!--  -->
+
 
 # Faithfulness
+
+Given distribution $P_{\b X}$ and DAG $\graph$
+
+::: incremental
+- $P_{\b X}$ is faithful to $\graph$ if: $\b A \indep \b B | \b C \implies \b A \indep_\graph \b B | \b C$
+- $\b A \not\indep_\graph \b B | \b C \implies \b A \not\indep \b B | \b C$
+	- Infer dependencies from graph
+:::
 
 # Causal Minimality
 
