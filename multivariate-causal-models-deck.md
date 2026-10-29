@@ -220,7 +220,7 @@ A given DAG $\graph$ and joint distribution $P_{\b X}$ satisfies the...
 :::
 
 ::: { .fragment .center }
-All equivalent and applicable to SCM graphs! 🥳
+All equivalent and usable with SCM graphs! 🥳
 :::
 
 # $d$-Separation 〰🖊
@@ -247,9 +247,16 @@ Given distribution $P_{\b X}$ and DAG $\graph$
 	- No connection is inactive
 :::
 
-# Cool Stuff
+# Other Properties
 
-- 
+::: incremental
+- Markov Equivalence (same Markovian distributions possible for $\graph$)<br>![Figure 6.4 p.103](images/markov-equiv.png){ width=90% }<br>(Same skeleton and v-structures)
+- Markov blanket
+	- Smallest $M$ s.t. $Y \indep_\graph \b V \setminus (\{ Y \} \cup M) \;|\; M$
+	- DAG: $M = \parents_Y \cup \b{CH}_Y \cup \parents_{\b{CH}_Y}$
+- Reichenbach’s common cause principle
+	- Dependence between $X$ and $Y$ $\implies$ directed path between them or from common cause
+:::
 
 # Literature
 
