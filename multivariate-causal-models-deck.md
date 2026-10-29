@@ -20,6 +20,7 @@ footer-text: Multivariate Causal Models - Julian Bohnenkämper
 	- $d$-Separation
 - Faithfulness
 - Causal Minimality
+- Other Properties
 $\newcommand{\b}{\mathbf}$
 $\newcommand{\scm}{\mathfrak{C}}$
 $\newcommand{\parents}{\b{PA}}$
