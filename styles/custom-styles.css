@@ -1,0 +1,33 @@
+
+/* Slightly larger title font */
+section#title-slide .title {
+    font-size: 2em;
+}
+
+/* Center section slides (slides without content) vertically and make banner larger */
+.reveal section.section h1, .reveal section div.alignment:has(>:only-child) {
+    margin: auto !important;
+    &>h1 {
+        font-size: 2em;
+    }
+}
+
+/* General horizontal center alignment for a nicer layout */
+section.slide .alignment {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &>.layout {
+        width: fit-content;
+        height: fit-content;
+        &>.area {
+            width: fit-content;
+            height: fit-content;
+            &>.box.block {
+                width: fit-content;
+                height: fit-content;
+            }
+        }
+    }
+}

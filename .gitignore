@@ -1,0 +1,6 @@
+
+# Do not commit the output folder of decker
+public
+
+# Do not commit the decker folder
+.decker

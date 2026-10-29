@@ -1,0 +1,16 @@
+# These are the global settings for this decker project (directory)
+# Settins you set in here can be overwritten on a per-deck basis in the header of each ...-deck.md
+
+resource-pack: exe:tudo
+
+pandoc:
+  filters:
+    before:
+      # Enables the footer-text for your project
+      - /plugins/footer/before.lua
+
+# Add the custom-styles.css to all presentations
+template:
+  deck:
+    css:
+      - styles/custom-styles.css
