@@ -239,6 +239,14 @@ Given distribution $P_{\b X}$ and DAG $\graph$
 
 # Causal Minimality
 
+Given distribution $P_{\b X}$ and DAG $\graph$
+
+::: incremental
+- $P_{\b X}$ satisfies causal minimality w.r.t. $\graph$ if it is Markovian w.r.t. $\graph$,<br>but no proper subgraph of $\graph$ is.
+- Equivalent: $\forall X_j. \quad \forall Y \in \parents_j^\graph. \quad X_j \not\indep Y | \parents_j^\graph \setminus \{Y\}.$
+	- No connection is inactive
+:::
+
 # Cool Stuff
 
 - 
