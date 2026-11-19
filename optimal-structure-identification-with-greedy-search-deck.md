@@ -13,11 +13,13 @@ footer-text: Global Equivalence Search - Julian Bohnenkämper
 # Overview
 
 - Review / Notation
-- GES Overview
-- States & Neighbors
-- Scoring Functions
-- Independence Map
-- Meek's Conjecture
+- Global Equivalence Search
+  - Overview
+  - States and their Neighbors
+  - Scoring Function Properties
+  - Independence Map
+  - Meek's Conjecture
+- Search Space Representation & Operators
 - Assumptions
 - Conclusion
 $\newcommand{\b}{\mathbf}$
@@ -41,8 +43,8 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 - Generative distribution: $p(\:\cdot\:)$ --- e.g., Gaussian
 - DAG: $\graph = (E, V)$
 - Perfect map
-  - Markov: $\b A \indep_\graph \b B \:|\: \b C \implies \b A \indep \b B \:|\: \b C$
-  - Faithfulness: $\b A \indep \b B \:|\: \b C \implies \b A \indep_\graph \b B \:|\: \b C$
+  - Markov: $\b A \indep_\graph \b B \:|\: \b C \implies \b A \indep_p \b B \:|\: \b C$
+  - Faithfulness: $\b A \indep_p \b B \:|\: \b C \implies \b A \indep_\graph \b B \:|\: \b C$
 
 :::
 
@@ -66,7 +68,7 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 ::: incremental
 
 - Goal: Find a DAG $\graph$ that is a perfect map of $p$
-- Start: Empty graph (no edges) equivalence class $\class$
+- Start: Equivalence class $\class$ of graph without edges
 - Phase 1: Add next edge using scoring criterion
   - Repeat until local maximum reached, then continue to phase 2
     - Now $p(\:\cdot\:)$ can be modeled with $\graph \in \class$
@@ -78,11 +80,11 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 
 :::
 
-# States & Neighbors
+# States and their Neighbors
 
 ![](images/neighbors.png){ .fragment width="80%" }
 
-# Scoring Functions
+# Scoring Function Properties
 
 ::: incremental
 
@@ -128,21 +130,22 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 - GED visits $\leq n \cdot (n - 1)$ states
   - In practice even linear
 - Generate and evaluate neighbors
-  - Connectivity usually sparse, but could theoretically be problematic
+  - ~~Work on sets of DAGs~~
+  - Work directly on equivalence class representation (completed PDAGs)
 
 :::
 
-# Operators on Completed PDAGs
+# Operators on Completed PDAGs $\pdag$
 
 ::: { .incremental style="margin-top: -5%" }
 
 - $Insert(X, Y, \b T)$
-  - Before: $\b T$ is subset of neighbors of $Y$, not adjacent to $X$
-  - After: $X \to Y \leftarrow T \quad (T \in \b T)$
+  - Before: $Y - \b T$ and $Y$ not adjacent to $X$
+  - After: $X \to Y \leftarrow \b T$
 
 - $Delete(X, Y, \b H)$
-  - Before: $X - Y$ or $X \to Y$, and $\b H$ is subset of neighbors of $Y$
-  - After: $X \to H \leftarrow Y \quad (H \in \b H)$
+  - Before: $X -\!\!\circ Y - \b H \circ\!\!-\!\!\circ X$
+  - After: $H \leftarrow Y \quad (H \in \b H)$ and leave $X \circ\!\!-\!\!\circ H$ if it is directed, otherwise $X \to H$
 
 - Valid? [Can be checked quickly ✅]{ .fragment }
 - Complete? [Only necessary for move (not evaluation) 😁]{ .fragment }
@@ -167,7 +170,16 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 :::
 
 # Conclusion
-- yup
+- Greedy score based algorithm working on completed
+
+  PDAGs as an equivalence class representation
+  - Phase 1: Add edges until score is maximal
+    - $p$ is in $\class$
+  - Phase 2: Remove edges until score is maximal
+    - $\class$ is perfect map of $p$
+- Theoretically exponential runtime,
+
+  but fast in practice due to sparse neighbors.
 
 # Literature
 
