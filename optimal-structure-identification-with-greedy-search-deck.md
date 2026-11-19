@@ -96,7 +96,7 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
   - $\graph'$ is $\graph$ with additional edge $X_i \to X_j$
   1. $X_j \not \indep_p X_i | \parents_j^\graph \implies S(\graph', \data) > S(\graph, \data)$ 👈
   2. $X_j \indep_p X_i | \parents_j^\graph \implies S(\graph', \data) < S(\graph, \data)$
-
+  - Scoring criterion is decomposable: $S(\graph, \data) = \sum_{i = 1}^n s(X_i, \parents_i^\graph)$
 :::
 
 # Why do we get a perfect map at the end?
@@ -180,6 +180,10 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 - Theoretically exponential runtime,
 
   but fast in practice due to sparse neighbors.
+
+- Comparison: Better on synthetic dataset,
+
+  about the same on real world data.
 
 # Literature
 
