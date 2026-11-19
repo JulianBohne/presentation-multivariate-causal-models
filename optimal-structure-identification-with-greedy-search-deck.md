@@ -6,7 +6,7 @@ subtitle: 'Optimal Structure Identificatin With Greedy Search'
 author: 'Julian Bohnenkämper'
 affiliation:
   - 'TU Dortmund'
-  - '29.10.2026'
+  - '19.11.2026'
 footer-text: Global Equivalence Search - Julian Bohnenkämper
 ---
 
