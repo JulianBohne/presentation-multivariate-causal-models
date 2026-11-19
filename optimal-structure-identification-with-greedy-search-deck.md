@@ -30,19 +30,21 @@ $\newcommand{\desc}{\b{De}}$
 $\newcommand{\neighborsadd}{\boldsymbol \class^+}$
 $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 
-# Review / Notation (1 / 3)
+# Review / Notation (1 / 2)
 
 ::: incremental
 
 - Generative distribution: $p(\:\cdot\:)$ --- e.g., Gaussian
-  - DAG: $\graph$
-  - Perfect map: Markov + Faithfulness
+- DAG: $\graph$
+- Perfect map
+  - Markov: $\b A \indep_\graph \b B \:|\: \b C \implies \b A \indep \b B \:|\: \b C$
+  - Faithfulness: $\b A \indep \b B \:|\: \b C \implies \b A \indep_\graph \b B \:|\: \b C$
 
 :::
 
 
 
-# Review / Notation (2 / 3)
+# Review / Notation (2 / 2)
 
 ::: incremental
 
@@ -55,43 +57,49 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 
 ![DAG (a) and completed PDAG (b)](images/DAG-completed-PDAG.png){ .fragment width="60%" }
 
-# Review / Notation (3 / 3)
-
-- DAG $\inmap$ is an independence map of DAG $\graph$: $X \indep_\inmap Y | \b S \implies X \indep_\graph Y | \b S$
-
-![$\graph\text{ (a)} \leq \inmap\text{ (b)}: \quad A \indep B,\quad A \indep E \:|\: \{C\},\quad B \indep E \:|\: \{C\}$](images/indep-map.png){ .fragment width="70%" }
-
 # GES Overview
 
 ::: incremental
 
 - Goal: Find a DAG $\graph$ that is a perfect map of $p$
-- Start: Empty graph equivalence class $\class$
+- Start: Empty graph (no edges) equivalence class $\class$
 - Phase 1: Add next edge using scoring criterion
   - Repeat until local maximum reached, then continue to phase 2
     - Now $p(\:\cdot\:)$ can be modeled with $\graph \in \class$
 - Phase 2: Delete edge using scoring criterion
   - Repeat until maximum reached, then done!
     - $\class$ now contains a perfect map (if one exists)
-- Worst case states visited: $n \cdot (n - 1)$ ($n = \text{\#variables}$)
-  - But wait, isn't the problem NP-Hard?
+- Worst case $n \cdot (n - 1)$ states visited ($n = \text{\#variables}$)
+  - But wait, isn't the problem NP-Hard? [Yes 😅]{ .fragment }
 
 :::
+
+# States & Neighbors
+
+![](images/neighbors.png){ .fragment width="80%" }
 
 # Scoring Functions
 
 ::: incremental
 
 - Bayesian scoring criterion: $S_B(\graph, \data) = \log \underbrace{p(\graph^h)}_{\text{Prior}} + \log \underbrace{p(\data | \graph^h)}_{\text{Marginal\\likelihood}}$
-- Consistent in the limit of infinite data:
+- Consistent in the limit of large data:
   1. $\inmap$ contains $p$ and $\graph$ does not $\implies S(\inmap, \data) > S(\graph, \data)$
   2. $\inmap$ and $\graph$ contain $p$, but $\graph$ has fewer parameters $\implies S(\graph, \data) > S(\inmap, \data)$
-- Locally Consistent in the limit of infinite data
+- Locally consistent in the limit of large data
   - $\graph'$ is $\graph$ with additional edge $X_i \to X_j$
-  1. $X_j \not \indep_p X_i | \parents_j^\graph \implies S(\graph', \data) > S(\graph, \data)$
+  1. $X_j \not \indep_p X_i | \parents_j^\graph \implies S(\graph', \data) > S(\graph, \data)$ 👈
   2. $X_j \indep_p X_i | \parents_j^\graph \implies S(\graph', \data) < S(\graph, \data)$
 
 :::
+
+# Why do we get a perfect map at the end?
+
+# Independence Map
+
+- DAG $\inmap$ is an independence map of DAG $\graph$: $X \indep_\inmap Y | \b S \implies X \indep_\graph Y | \b S$
+
+![$\graph\text{ (a)} \leq \inmap\text{ (b)}: \quad A \indep B,\quad A \indep E \:|\: \{C\},\quad B \indep E \:|\: \{C\}$](images/indep-map.png){ .fragment width="70%" }
 
 # Meek's Conjecture
 
