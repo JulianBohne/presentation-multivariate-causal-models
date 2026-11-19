@@ -14,7 +14,11 @@ footer-text: Global Equivalence Search - Julian Bohnenkämper
 
 - Review / Notation
 - GES Overview
+- States & Neighbors
 - Scoring Functions
+- Independence Map
+- Meek's Conjecture
+- Assumptions
 - Conclusion
 $\newcommand{\b}{\mathbf}$
 $\newcommand{\scm}{\mathfrak{C}}$
@@ -35,7 +39,7 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 ::: incremental
 
 - Generative distribution: $p(\:\cdot\:)$ --- e.g., Gaussian
-- DAG: $\graph$
+- DAG: $\graph = (E, V)$
 - Perfect map
   - Markov: $\b A \indep_\graph \b B \:|\: \b C \implies \b A \indep \b B \:|\: \b C$
   - Faithfulness: $\b A \indep \b B \:|\: \b C \implies \b A \indep_\graph \b B \:|\: \b C$
@@ -116,12 +120,51 @@ $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 
 :::
 
-# Search Spaces
+# Search Space Problems
+
+::: incremental
+
+- 8 Variables: >700B DAGs and >200B equivalence classes
+- GED visits $\leq n \cdot (n - 1)$ states
+  - In practice even linear
+- Generate and evaluate neighbors
+  - Connectivity usually sparse, but could theoretically be problematic
+
+:::
+
+# Operators on Completed PDAGs
+
+::: { .incremental style="margin-top: -5%" }
+
+- $Insert(X, Y, \b T)$
+  - Before: $\b T$ is subset of neighbors of $Y$, not adjacent to $X$
+  - After: $X \to Y \leftarrow T \quad (T \in \b T)$
+
+- $Delete(X, Y, \b H)$
+  - Before: $X - Y$ or $X \to Y$, and $\b H$ is subset of neighbors of $Y$
+  - After: $X \to H \leftarrow Y \quad (H \in \b H)$
+
+- Valid? [Can be checked quickly ✅]{ .fragment }
+- Complete? [Only necessary for move (not evaluation) 😁]{ .fragment }
+  - $O(|E|\cdot k^2) \quad (k\text{ max parents per node})$
+- Local update rules for validity and score
+- Worst case: Exponential number of valid operators 😅
+
+:::
 
 # Assumptions
 
-- Perfect map and iid data
+::: incremental
+
+- Perfect map (over observable variables) and iid data
+  - Refinement of the hypotheses $\graph^h$ necessary
+  - We may only find a minimal independence map of the optimal solution
+- Consistent score that is decomposable in the limit
 - Score equivalence
+  - To easily find a highest-scoring DAG in a class
+- Cause-effect relationships can be modeled into the scoring criterion
+
+:::
 
 # Conclusion
 - yup
