@@ -30,30 +30,53 @@ $\newcommand{\desc}{\b{De}}$
 $\newcommand{\neighborsadd}{\boldsymbol \class^+}$
 $\newcommand{\neighborsdel}{\boldsymbol \class^-}$
 
-# Review / Notation
+# Review / Notation (1 / 3)
+
+::: incremental
 
 - Generative distribution: $p(\:\cdot\:)$ --- e.g., Gaussian
   - DAG: $\graph$
   - Perfect map: Markov + Faithfulness
+
+:::
+
+
+
+# Review / Notation (2 / 3)
+
+::: incremental
+
 - Equivalence class: $\graph \approx \graph' \implies \graph' \in \class(\graph)$
   - Same skeleton & same v-structures
 - PDAG: $\pdag$
-  - Complete: TODO:
+  - Complete: *Reversible* edges are undirected, *compelled* edges directed
+
+:::
+
+![DAG (a) and completed PDAG (b)](images/DAG-completed-PDAG.png){ .fragment width="60%" }
+
+# Review / Notation (3 / 3)
+
 - DAG $\inmap$ is an independence map of DAG $\graph$: $X \indep_\inmap Y | \b S \implies X \indep_\graph Y | \b S$
-  - $\graph \leq \inmap$
+
+![$\graph\text{ (a)} \leq \inmap\text{ (b)}: \quad A \indep B,\quad A \indep E \:|\: \{C\},\quad B \indep E \:|\: \{C\}$](images/indep-map.png){ .fragment width="70%" }
 
 # GES Overview
 
+::: incremental
+
 - Goal: Find a DAG $\graph$ that is a perfect map of $p$
 - Start: Empty graph equivalence class $\class$
-- Phase 1
-  - Add edges until score maximum score reached
-    - $p(\:\cdot\:)$ can be modeled with $\graph$
-- Phase 2
-  - Remove edges until score maximum score reached
+- Phase 1: Add next edge using scoring criterion
+  - Repeat until local maximum reached, then continue to phase 2
+    - Now $p(\:\cdot\:)$ can be modeled with $\graph \in \class$
+- Phase 2: Delete edge using scoring criterion
+  - Repeat until maximum reached, then done!
     - $\class$ now contains a perfect map (if one exists)
 - Worst case states visited: $n \cdot (n - 1)$ ($n = \text{\#variables}$)
   - But wait, isn't the problem NP-Hard?
+
+:::
 
 # Scoring Functions
 
